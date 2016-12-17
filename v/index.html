@@ -69,19 +69,19 @@
                 <br>
                 <div class="ingresar">
                 
-                    <div><img src="../media/logo50.png" style="width:98%;"></div><br>
+                    <div><img src="../media/app/images/logo50.png" style="width:98%;"></div><br>
                         
                     <div class="form-group">
                         <div class="form-group">
                             <div class="input-group">
                                 <input ng-model="emailPersona" class="form-control" type="email" placeholder="Correo electr&oacute;nico">
-                                <span class="input-group-addon"><img src="../media/user5.png" style="width:20px;"></span>
+                                <span class="input-group-addon"><img src="../media/app/images/user5.png" style="width:20px;"></span>
                             </div>
                         </div><br>
                         <div class="form-group">
                             <div class="input-group">
                                 <input ng-model="contraseniaPersona" class="form-control" type="password" placeholder="Contrase&ntilde;a">
-                                <span class="input-group-addon"><img src="../media/key7.png" style="width:20px;"></span>
+                                <span class="input-group-addon"><img src="../media/app/images/key7.png" style="width:20px;"></span>
                             </div>
                         </div><br><br>
                         <button class="btn btn-primary" ng-click="vLogin('loginActivity','personRead')">Ingresar</button>
@@ -128,19 +128,19 @@
 
 
 
-<section id="personRead" style="display:none;">
+<section id="personRead" style="display:none; margin-top:1em;">
 
 
 <div class="container">
 
-    <div class="row" style="background-color:#FAFAFA;">
+    <div class="row" style="background-color:#FAFAFA;padding-top:1em;">
 
         <div class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-1" style="color:#585858; margin-top:20px;">
 
             <div id="foto">
                 <div style="display:block; cursor:pointer;" title="cambiar imagen" ng-click="hs('foto','otof')">
                     <div class="col-xs-12 col-sm-8 col-md-offset-2">
-                        <img style="width:100%;" src="../media/persons/profilePictures/{{profilePicture}}">  
+                        <img style="width:100%;" src="../media/persons/images/profilePictures/{{profilePicture}}">  
                     </div>
                 </div>
             </div>
@@ -443,7 +443,10 @@
 
 
 
-<section id="vacantesRead" style="display:block; margin-top:5em;">
+
+
+
+<section id="vacantesRead" style="display:block; margin-top:3em;">
 
   <div class="container">
 
@@ -453,15 +456,13 @@
 
             <div class="row" ng-repeat="vacante in listado">
 
-                <div id="vacanteAceptadoPreview" style="display:block; background-color:#1aff1a; border-bottom:#585858; padding:1em;" >
-                    <h3><b>{{vacante.tituloVacante}}</b></h3> 
-                    <br>
+                <div id="vacanteAceptadoPreview_{{$index}}" ng-click="hs('vacanteAceptadoPreview_' + $index , 'vacanteAceptadoFull_' + $index )" style="display:block; background-color:#1aff1a; border-bottom:#585858; padding:1em;" >
+                    <h3 class="tituloVacante"><b>{{vacante.tituloVacante}}</b></h3> 
                     {{vacante.descripcionVacante | cortarTexto:250}}  
                 </div>
 
-                <div id="vacanteAceptadoFull" style="display:block; background-color:#1aff1a; border-bottom:#585858; padding:1em;" >
-                    <h3><b>{{vacante.tituloVacante}}</b></h3> 
-                    <br>
+                <div id="vacanteAceptadoFull_{{$index}}" ng-click="hs('vacanteAceptadoFull_' + $index , 'vacanteAceptadoPreview_' + $index )" style="display:none; background-color:#1aff1a; border-bottom:#585858; padding:1em;" >
+                    <h3 class="tituloVacante"><b>{{vacante.tituloVacante}}</b></h3> 
                     {{vacante.descripcionVacante}} 
                 </div>
 
@@ -472,45 +473,42 @@
 
 
 
-            <div class="row" ng-repeat="vacante in listado2">
+            <div class="row" ng-repeat="vacante2 in listado2">
 
-                <div id="vacanteAceptadoPreview" style="display:block; background-color:#FBFC58; border-bottom:#585858; padding:1em;" >
-                    <h3><b>{{vacante.tituloVacante}}</b></h3> 
-                    <br>
-                    {{vacante.descripcionVacante | cortarTexto:250}}  
+                <div id="vacantePendingPreview_{{$index}}" ng-click="hs('vacantePendingPreview_' + $index , 'vacantePendingFull_' + $index )" style="display:block; background-color:#FBFC58; border-bottom:#585858; padding:1em;" >
+                    <h3 class="tituloVacante"><b>{{vacante2.tituloVacante}}</b></h3> 
+                    {{vacante2.descripcionVacante | cortarTexto:250}}  
                 </div>
 
-                <div id="vacanteAceptadoFull" style="display:block; background-color:#FBFC58; border-bottom:#585858; padding:1em;" >
-                    <h3><b>{{vacante.tituloVacante}}</b></h3> 
-                    <br>
-                    {{vacante.descripcionVacante}} 
+                <div id="vacantePendingFull_{{$index}}" ng-click="hs('vacantePendingFull_' + $index , 'vacantePendingPreview_' + $index )" style="display:none; background-color:#FBFC58; border-bottom:#585858; padding:1em;" >
+                    <h3 class="tituloVacante"><b>{{vacante2.tituloVacante}}</b></h3> 
+                    {{vacante2.descripcionVacante}} 
+                </div>
+
+                <div style="clear:both; height:1em;"></div> <!-- espacio -->
+
+            </div>
+
+
+
+
+
+            <div class="row" ng-repeat="vacante3 in listado3">
+
+                <div id="vacanteNothingPreview_{{$index}}" ng-click="hs('vacanteNothingPreview_' + $index , 'vacanteNothingFull_' + $index )" style="display:block; background-color:#ffcccc; border-bottom:#585858; padding:1em;" >
+                    <h3 class="tituloVacante"><b>{{vacante3.tituloVacante}}</b></h3> 
+                    {{vacante3.descripcionVacante | cortarTexto:250}}  
+                </div>
+
+                <div id="vacanteNothingFull_{{$index}}" ng-click="hs('vacanteNothingFull_' + $index , 'vacanteNothingPreview_' + $index )" style="display:none; background-color:#ffcccc; border-bottom:#585858; padding:1em;" >
+                    <h3 class="tituloVacante"><b>{{vacante3.tituloVacante}}</b></h3> 
+                    {{vacante3.descripcionVacante}} 
                 </div>
 
                 <div style="clear:both; height:1em;"></div> <!-- espacio -->
 
             </div>
 
-
-
-
-
-            <div class="row" ng-repeat="vacante in listado3">
-
-                <div id="vacanteAceptadoPreview" style="display:block; background-color:#ffcccc; border-bottom:#585858; padding:1em;" >
-                    <h3><b>{{vacante.tituloVacante}}</b></h3> 
-                    <br>
-                    {{vacante.descripcionVacante | cortarTexto:250}}  
-                </div>
-
-                <div id="vacanteAceptadoFull" style="display:block; background-color:#ffcccc; border-bottom:#585858; padding:1em;" >
-                    <h3><b>{{vacante.tituloVacante}}</b></h3> 
-                    <br>
-                    {{vacante.descripcionVacante}} 
-                </div>
-
-                <div style="clear:both; height:1em;"></div> <!-- espacio -->
-
-            </div>
 
 
 

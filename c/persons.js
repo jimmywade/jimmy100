@@ -117,6 +117,8 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
                     if(status==200){
                         var foo = $scope.hs(h,s);
                         var foo = $scope.getObjects('AcceptedRead');
+                        var pending = $scope.pendingRead();
+                        var nothing = $scope.nothingRead();
                         var foo = $scope.setToken($scope.v[0].idPersona);
                         var foo = $scope.getToken();
                         $scope.profilePicture = $scope.v[0].imgPersona;
@@ -150,37 +152,6 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
 
 
 
-
-
-
-
-
-
-
-    //pending
-    $scope.pending=function(h,s){
-                   
-                        var foo = $scope.hs(h,s);
-                        var foo = $scope.getObjects('pendingRead');
- 
-    }
-
-
-
-
-
-
-
-
-
-
-    //nothing
-    $scope.nothing=function(h,s){
-                   
-                        var foo = $scope.hs(h,s);
-                        var foo = $scope.getObjects('nothingRead');
- 
-    }
 
 
 
@@ -225,35 +196,12 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
 
 
 
-    //lanzar consulta GET a cualquier webservice de control
-    $scope.getObjects=function(nombreObject){
-                //load todos los objetos principales
-                $scope.listado = [];
-                $http.get("../c/" +  nombreObject + ".php")
-                    .success(function(data,status,headers,config){
-                        $scope.listado = data;
-                        console.log(data);
-                        console.log('-----------------------');
-                        console.log('STATUS: ' + status );
-                        console.log('-----------------------');
-                        console.log('HEADERS:' + headers );
-                        console.log('-----------------------');
-                        console.log(config);
-                    })
-                    .error(function(err){
-                        console.log('no se pudo consultar -> ' + nombreObject);
-                    });
-     };
 
 
 
 
 
-
-
-
-
-    //lanzar consulta GET a cualquier webservice de control
+    //accepted GREEN
     $scope.getObjects=function(nombreObject){
                 //load todos los objetos principales
                 $scope.listado = [];
@@ -283,21 +231,50 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
 
 
 
-    //$scope.$watch($scope.getObjects);
+
+
+
+
+    //pending YELLOW
+    $scope.pendingRead=function(){
+                   
+        $scope.listado2 = [];
+        $http.get("../c/pendingRead.php")
+            .success(function(data,status,headers,config){
+                $scope.listado2 = data;
+                console.log(data);
+                console.log('-----------------------');
+                console.log('STATUS: ' + status );
+                console.log('-----------------------');
+                console.log('HEADERS:' + headers );
+                console.log('-----------------------');
+                console.log(config);
+            })
+            .error(function(err){
+                console.log('no se pudo consultar -> ' + nombreObject);
+            });
+
+            alert($scope.listado2);
+
+ 
+    }
 
 
 
 
 
-/*
 
-    //lanzar consulta POST a cualquier webservice de control
-    $scope.postObjects=function(nombreObject,json){
-                //load todos los objetos principales
-                $scope.listado = [];
-                $http.post("../c/" +  nombreObject + ".php",json)
+
+
+
+
+    //nothing RED
+    $scope.nothingRead=function(){
+
+                $scope.listado3 = [];
+                $http.get("../c/nothingRead.php")
                     .success(function(data,status,headers,config){
-                        $scope.listado = data;
+                        $scope.listado3 = data;
                         console.log(data);
                         console.log('-----------------------');
                         console.log('STATUS: ' + status );
@@ -305,22 +282,14 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
                         console.log('HEADERS:' + headers );
                         console.log('-----------------------');
                         console.log(config);
-                        console.log('-----------------------');
-
                     })
                     .error(function(err){
                         console.log('no se pudo consultar -> ' + nombreObject);
                     });
-    };
-*/
 
-
-
-
-
-
-
-
+                    alert($scope.listado3);
+ 
+    }
 
 
 

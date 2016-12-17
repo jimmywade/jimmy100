@@ -24,12 +24,14 @@
 	    public function AcceptedRead(){
 			$sql = " 
 			SELECT * FROM solicitudes,vacantes,empresas,ciudades,paises
-			WHERE vacantes.estadoVacante = 1
+			WHERE solicitudes.idPersona = '3' 
+			AND solicitudes.estadoPersona = 1 
+            AND solicitudes.estadoEmpresa = 1
+            AND solicitudes.idVacante = vacantes.idVacante
+			AND vacantes.estadoVacante = 1
 			AND vacantes.idEmpresa = empresas.idEmpresa
 			AND empresas.idCiudad = ciudades.idCiudad
 			AND empresas.idPais = paises.idPais
-			AND solicitudes.estadoPersona = 1
-			AND solicitudes.estadoEmpresa = 1
 			ORDER BY solicitudes.idSolicitud DESC
 			";
 			$result = mysqli_query($this->db->connect(), $sql);
@@ -56,12 +58,16 @@
 
 	    public function pendingRead(){
 			$sql = " 
-			SELECT * FROM vacantes,empresas,ciudades,paises
-			WHERE vacantes.estadoVacante = 1
+			SELECT * FROM solicitudes,vacantes,empresas,ciudades,paises
+			WHERE solicitudes.idPersona = '3' 
+			AND solicitudes.estadoPersona = 1 
+            AND solicitudes.estadoEmpresa = 0
+            AND solicitudes.idVacante = vacantes.idVacante
+			AND vacantes.estadoVacante = 1
 			AND vacantes.idEmpresa = empresas.idEmpresa
 			AND empresas.idCiudad = ciudades.idCiudad
 			AND empresas.idPais = paises.idPais
-			ORDER BY vacantes.fechaPublicacion DESC
+			ORDER BY solicitudes.idSolicitud DESC
 			";
 			$result = mysqli_query($this->db->connect(), $sql);
 	        $rows = array();
@@ -85,13 +91,14 @@
 
 
 	    public function nothingRead(){
-			$sql = " 
-			SELECT * FROM vacantes,empresas,ciudades,paises
-			WHERE vacantes.estadoVacante = 1
-			AND vacantes.idEmpresa = empresas.idEmpresa
-			AND empresas.idCiudad = ciudades.idCiudad
-			AND empresas.idPais = paises.idPais
-			ORDER BY vacantes.fechaPublicacion DESC
+			$sql = "
+			SELECT * FROM vacantes,empresas,ciudades,paises 
+			WHERE vacantes.estadoVacante = 1 
+			AND vacantes.idVacante NOT IN (SELECT idVacante FROM solicitudes WHERE idPersona='3')
+			AND empresas.idEmpresa = vacantes.idEmpresa
+			AND ciudades.idCiudad = empresas.idCiudad
+			AND paises.idPais = empresas.idPais
+			ORDER BY vacantes.idVacante DESC
 			";
 			$result = mysqli_query($this->db->connect(), $sql);
 	        $rows = array();
