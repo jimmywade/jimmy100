@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title> Talent </title>
+
+    <link rel="shortcut icon" href="../img/logo10.png" type="image/png" />
+    <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../styles.css" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+
+    <script type="text/javascript" src="../libs/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../libs/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../libs/angular/angular-resource.js"></script>
+    <!-- shim es necesario para soportar < IE9-->
+    <script src="../libs/angular/ng-file-upload-shim.min.js"></script>
+    <script src="../libs/angular/ng-file-upload.min.js"></script>
+    <script type="text/javascript" src="../c/controladores_1.js"></script>
+    <script type="text/javascript" src="../c/persons.js"></script>
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-78271394-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</head>
+
+<body class="fondo-azul"  ng-app="personasApp">
+
+
+<!-- ...........................................................................................................  -->
+
+
+<section ng-controller="controllerV">
+<section data-ng-init="setDefaultValues(); setDefaultViews()">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section id="loginActivity" style="display:none;">
+  
+    <div class="container-fluid" style="margin-top:3%;">
+
+            <div class="col-xs-12 col-sm-8 col-md-4  col-sm-offset-2 col-md-offset-4" style="color:#585858;">
+                <br>
+                <div class="ingresar">
+                
+                    <div><img src="../media/logo50.png" style="width:98%;"></div><br>
+                        
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input ng-model="emailPersona" class="form-control" type="email" placeholder="Correo electr&oacute;nico">
+                                <span class="input-group-addon"><img src="../media/user5.png" style="width:20px;"></span>
+                            </div>
+                        </div><br>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input ng-model="contraseniaPersona" class="form-control" type="password" placeholder="Contrase&ntilde;a">
+                                <span class="input-group-addon"><img src="../media/key7.png" style="width:20px;"></span>
+                            </div>
+                        </div><br><br>
+                        <button class="btn btn-primary" ng-click="vLogin('loginActivity','personRead')">Ingresar</button>
+                    </div>
+
+
+                    <section style="text-align:right;">
+                        <br/><br/>
+                        <!--
+                        <a href="pass.html"><u>Olvide mi contrase&ntilde;a</u></a>
+                        -->
+                        <br/><br/><br/>
+                    </section>
+
+
+                    <section style="text-align:right;">
+                        <a href="registrarse.html" class="btn btn-info" >Registrarse</a>
+                    </section>
+                    
+                </div>    <!-- div ingresar-->
+            </div>  <!-- div columna central-->
+
+    </div>  <!-- div container fluid-->
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section id="personRead" style="display:none;">
+
+
+<div class="container">
+
+    <div class="row" style="background-color:#FAFAFA;">
+
+        <div class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-1" style="color:#585858; margin-top:20px;">
+
+            <div id="foto">
+                <div style="display:block; cursor:pointer;" title="cambiar imagen" ng-click="hs('foto','otof')">
+                    <div class="col-xs-12 col-sm-8 col-md-offset-2">
+                        <img style="width:100%;" src="../media/persons/profilePictures/{{profilePicture}}">  
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="otof" style="display:none; border-radius:10px;background-color:#fcfcfc;padding-top:30px;padding-right:12px;padding-left:12px;padding-bottom:30px; text-align:center;">
+
+                        <div>
+                        <!--
+                        Upload on form submit or button click
+                        <form name="form">
+                            Single Image with validations
+                            <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+                            ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" 
+                            ngf-resize="{width: 100, height: 100}">Select</div>
+
+                            Multiple files
+                            <div class="button" ngf-select ng-model="files" ngf-multiple="true">Select</div>
+                            Drop files: <div ngf-drop ng-model="files" class="drop-box">Drop</div>
+                            <button type="submit" ng-click="submit()">submit</button>
+                        </form>
+                        -->
+
+                        <!--
+                        Upload right away after file selection:
+                        -->
+
+                        <div class="btn btn-primary" ngf-select="upload($file)"><button><i class="fa fa-file-image-o fa-4x" aria-hidden="true"></i></button></div>
+                        <h6><i>Seleccione una imagen de perfil</i></h6>
+
+                        <!--                
+                        <div class="button" ngf-select="uploadFiles($files)" multiple="multiple">Upload on file select</div>
+                        -->
+
+                        <!--
+                        Drop File:
+                        <div ngf-drop="uploadFiles($files)" class="drop-box"
+                        ngf-drag-over-class="'dragover'" ngf-multiple="true" 
+                        ngf-pattern="'image/*,application/pdf'">Drop Images or PDFs files here</div>
+                        <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+                        Image thumbnail: <img ngf-thumbnail="file || '/thumb.jpg'">
+                        Audio preview: <audio controls ngf-src="file"></audio>
+                        Video preview: <video controls ngf-src="file"></video>
+                        -->
+                        </div>
+
+            </div> <!-- cierra las columnas del div otof-->
+                
+        </div> <!-- col -->
+
+
+
+
+
+
+
+
+        <div class="col-xs-11 col-sm-11 col-md-6  col-sm-offset-0 col-md-offset-0" style="color:#585858; margin-top:10px;">
+
+            <section id="psn1" class="separacion" style="display:block;">
+                <div>
+                    <div class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                        <label for="nombre20">Nombre y apellidos:</label>
+                    </div>
+                    <div class="col-xs-10 col-sm-10 col-md-7 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                      <div class="form-group">
+                          <button onclick="detalles('psn1','psn2')" class="btn btn-default" style="width:100%;">{{nombrePersona}}</button>
+                      </div>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-1 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                      <div class="form-group">
+                          <button onclick="detalles('psn1','psn2')" title="save" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+                      </div>
+                    </div>
+                </div>    
+            </section>
+
+            <section id="psn2" class="separacion" style="display:none;">
+                <div class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                    <label for="nya">Nombre y apellidos:</label>
+                    <label id="faa" style="color:red; display:none;"><i>Ingrese un valor</i></label>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-7 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                    <div class="form-group">
+                        <input ng-model="nombrePersona" type="text" maxlength="50" class="form-control" id="nya">
+                    </div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-1 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                    <button class="btn btn-default" ng-click="nombreUpdate()" title="save"><span class="glyphicon glyphicon-saved"></span></button>
+                </div>
+            </section>
+
+
+
+            <section id="psa1" class="separacion" style="display:block;">
+              <div>
+                  <div class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                      <label for="email">Fecha de Nacimiento:</label>
+                  </div>
+                  <div class="col-xs-10 col-sm-10 col-md-7 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                      <div class="form-group">
+                          <button onclick="var a = 'psa1'; var b = 'psa2'; detalles(a,b)" class="btn btn-default" style="width:100%;">{{nacimientoPersona}}</button>
+                      </div>
+                  </div>
+                  <div class="col-xs-2 col-sm-2 col-md-1 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                      <div class="form-group">
+                          <button onclick="var a = 'psa1'; var b = 'psa2'; detalles(a,b)" title="save" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+                      </div>
+                  </div>
+              </div>    
+            </section>
+
+            <section  id="psa2" class="separacion" style="display:none;">
+                <div class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                    <label for="nace">Fecha de Nacimiento:</label>
+                    <label id="fba" style="color:red; display:none;"><i>Ingrese un valor</i></label>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-7 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                  <div class="form-group">
+                      <input ng-model="nacimientoPersona2" type="date" maxlength="10" placeholder="AAAA-MM-DD" class="form-control" id="nace">
+                  </div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-1 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                  <div class="form-group">
+                      <button class="btn btn-primary" ng-click="nacimientoUpdate()" title="save"><span class="glyphicon glyphicon-saved"></span></button>
+                  </div>
+                </div>
+            </section>
+
+
+
+
+            <section id="psb1" class="separacion" style="display:block;">
+              <div>
+                  <div class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                      <label for="ec1">Estado civil:</label>
+                  </div>
+                  <div class="col-xs-10 col-sm-10 col-md-7 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                      <div class="form-group">
+                          <button onclick="detalles('psb1','psb2')" class="btn btn-default" style="width:100%;">{{nombreCivil}}</button>
+                      </div>
+                  </div>
+                  <div class="col-xs-2 col-sm-2 col-md-1 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                      <div class="form-group">
+                          <button onclick="detalles('psb1','psb2')" title="save" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+                      </div>
+                  </div>
+              </div>    
+            </section>
+
+            <section id="psb2" class="separacion" style="display:none;">   
+              <form id="formCivil">
+              <div class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                  <label for="ec">Estado civil:</label>
+                  <label id="fca" style="color:red; display:none;"><i>Ingrese un valor</i></label>
+              </div>
+              <div class="col-xs-10 col-sm-10 col-md-7 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                      <div class="form-group">
+                          <select ng-model="idCivil" class="form-control" id="ec" required>
+                              <option value="1">Soltero</option>
+                              <option value="2">Casado</option>
+                              <option value="3">Uni&oacute;n libre</option>
+                              <option value="4">Divorciado/a</option>
+                              <option value="5">Viudo/a</option>                                
+                          </select>
+                      </div>
+              </div>
+              <div class="col-xs-2 col-sm-2 col-md-1 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                  <div class="form-group">
+                      <button ng-click="civilUpdate()" title="save" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span></button>
+                  </div>
+              </div>
+              </form>  
+            </section>
+
+
+
+
+
+
+
+
+            <section id="psc1" class="separacion" style="display:block;">
+              <div>
+                  <div class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                      <label for="email">Direcci&oacute;n de residencia:</label>
+                  </div>
+                  <div class="col-xs-10 col-sm-10 col-md-7 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                      <div class="form-group">
+                          <button onclick="detalles('psc1','psc2')" class="btn btn-default" style="width:100%;">{{direccionPersona}}</button>
+                      </div>
+                  </div>
+                  <div class="col-xs-2 col-sm-2 col-md-1 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                      <div class="form-group">
+                          <button onclick="detalles('psc1','psc2')" title="save" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+                      </div>
+                  </div>
+              </div>    
+            </section>
+
+            <section id="psc2" class="separacion" style="display:none;">
+                <div class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                    <label for="d_res">Direcci&oacute;n de residencia:</label>
+                    <label id="ffa" style="color:red; display:none;"><i>Ingrese un valor</i></label>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-7 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                    <div class="form-group">
+                        <input ng-model="direccionPersona" type="text" maxlength="40" class="form-control" id="d_res">
+                    </div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-1 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                    <div class="form-group">
+                        <button ng-click="direccionUpdate()" title="save" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span></button>
+                    </div>
+                </div>
+            </section>
+                                          
+
+
+
+
+            <article style="clear:both; height:1px;"><br></article> <!--solo para dar espacio -->
+
+
+
+
+            <section id="countries1" class="separacion" style="display:block;">
+                <div data-ng-init="geo()" >
+                    <div class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                        <label for="email">Pais y ciudad:</label>
+                    </div>
+                    <div class="col-xs-10 col-sm-10 col-md-7 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                        <div class="form-group">
+                            <button class="btn btn-default" style="width:100%;">{{nombreCiudad}} - {{nombrePais}}</button>
+                        </div>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-1 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                        <div class="form-group">
+                            <button onclick="detalles('countries1','countries2')" title="save" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+                        </div>
+                    </div>
+                </div>    
+            </section>
+
+
+
+            <section id="countries2" style="display:none;">
+              <div id="roller14" class="col-xs-12 col-sm-4 col-md-4 col-sm-offset-0 col-md-offset-0" style="text-align:left; padding:0;">
+                  <label>Pais y ciudad:</label>
+              </div>
+              
+              <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                  
+              </div>
+            </section>
+
+
+
+            <article style="clear:both; height:20px;"></article> <!--solo para dar espacio -->
+
+
+        </div>  <!-- cierra las columnas del div detalles nombre, fecha nacimineto... -->
+
+
+
+    </div> <!-- rows -->
+</div> <!-- container fluid -->
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section id="vacantesRead" style="display:block; margin-top:5em;">
+
+  <div class="container">
+
+      <div class="row">
+          
+          <div class="col-xs-12">
+
+            <div class="row" ng-repeat="vacante in listado">
+
+                <div id="vacanteAceptadoPreview" style="display:block; background-color:#1aff1a; border-bottom:#585858; padding:1em;" >
+                    <h3><b>{{vacante.tituloVacante}}</b></h3> 
+                    <br>
+                    {{vacante.descripcionVacante | cortarTexto:250}}  
+                </div>
+
+                <div id="vacanteAceptadoFull" style="display:block; background-color:#1aff1a; border-bottom:#585858; padding:1em;" >
+                    <h3><b>{{vacante.tituloVacante}}</b></h3> 
+                    <br>
+                    {{vacante.descripcionVacante}} 
+                </div>
+
+                <div style="clear:both; height:1em;"></div> <!-- espacio -->
+
+            </div>
+
+
+
+
+            <div class="row" ng-repeat="vacante in listado2">
+
+                <div id="vacanteAceptadoPreview" style="display:block; background-color:#FBFC58; border-bottom:#585858; padding:1em;" >
+                    <h3><b>{{vacante.tituloVacante}}</b></h3> 
+                    <br>
+                    {{vacante.descripcionVacante | cortarTexto:250}}  
+                </div>
+
+                <div id="vacanteAceptadoFull" style="display:block; background-color:#FBFC58; border-bottom:#585858; padding:1em;" >
+                    <h3><b>{{vacante.tituloVacante}}</b></h3> 
+                    <br>
+                    {{vacante.descripcionVacante}} 
+                </div>
+
+                <div style="clear:both; height:1em;"></div> <!-- espacio -->
+
+            </div>
+
+
+
+
+
+            <div class="row" ng-repeat="vacante in listado3">
+
+                <div id="vacanteAceptadoPreview" style="display:block; background-color:#ffcccc; border-bottom:#585858; padding:1em;" >
+                    <h3><b>{{vacante.tituloVacante}}</b></h3> 
+                    <br>
+                    {{vacante.descripcionVacante | cortarTexto:250}}  
+                </div>
+
+                <div id="vacanteAceptadoFull" style="display:block; background-color:#ffcccc; border-bottom:#585858; padding:1em;" >
+                    <h3><b>{{vacante.tituloVacante}}</b></h3> 
+                    <br>
+                    {{vacante.descripcionVacante}} 
+                </div>
+
+                <div style="clear:both; height:1em;"></div> <!-- espacio -->
+
+            </div>
+
+
+
+
+
+          </div>
+        
+      </div>
+
+  </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>  
+</section>
+
+<!-- ...........................................................................................................  -->
+
+
+
+</body>
+</html>

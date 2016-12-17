@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title> Talent | Sign Up </title>
+    <link rel="shortcut icon" href="../media/logo10.png" type="image/png" />
+    <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="text/javascript" src="../libs/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../libs/angular/angular.min.js"></script>
+    <script type="text/javascript" src="../libs/angular/angular-resource.js"></script>
+    <script type="text/javascript" src="../c/controladores_1.js"></script>
+    <script type="text/javascript" src="../c/controlador444.js"></script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-78271394-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</head>
+<body class="fondo-azul" ng-app="talentApp">
+
+
+<!-- ...........................................................................................................  -->
+
+
+
+<div id="registroW" class="container col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2" style="margin-top:50px; margin-bottom:50px; display:block;" ng-controller="myController444">
+
+
+        <form class="form-horizontal" role="form" id="registroPersonas">
+            <div class="form-group">
+                <label class="control-label col-xs-3 col-sm-3 col-md-3" for="ncomer">Nombre y Apellidos:</label>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <input ng-model="com" type="text" class="form-control" id="ncomer" placeholder="Ingrese su nombre completo y apellidos" maxlength="29" style="border:solid 1px #E0EDFA;" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="control-label col-xs-3 col-sm-3 col-md-3" for="naci">Fecha de nacimiento:</label>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <input ng-model="nacimiento" type="date" class="form-control" id="naci" style="border:solid 1px #E0EDFA;" placeholder="Ejemplo: 1986-12-30" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-xs-3 col-sm-3 col-md-3" for="ese" style="text-align:right;">Seleccionar sexo:</label>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <select ng-model="sexoPersona" class="form-control" id="ese" required>
+                        <option value="1">Hombre</option>
+                        <option value="2">Mujer</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-xs-3 col-sm-3 col-md-3" for="ec" style="text-align:right;">Estado Civil:</label>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <select ng-model="civil" class="form-control" id="ec" required>
+                        <option value="1">Soltero/a</option>
+                        <option value="2">Casado/a</option>
+                        <option value="3">Uni&oacute;n libre</option>
+                        <option value="4">Divorciado/a</option>
+                        <option value="5">Viudo/a</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-group" style="clear:both; padding:0;">
+                <div class="col-xs-3 col-sm-3 col-md-3  col-sm-offset-0 col-md-offset-0" style="text-align:right;">
+                    <label>Seleccionar lugar de residencia:</label>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-sm-offset-0 col-md-offset-0">
+                    <section class="container-fluid fondo-gris2" style="padding:0; border-radius:8px; border:solid 2px #E0EDFA;" id="payciu">
+                        <div style="clear:both; height:15px;"></div> <!-- solo para dar espacio -->
+                        <div style="color:#585858;"><span>&nbsp;&nbsp;<b>Buscar</b> </span><input type="text" ng-model="searchKeyword"></div>
+                        <div style="clear:both; height:20px;"></div> <!-- solo para dar espacio -->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-0 col-md-offset-0" style="padding:0; overflow:scroll; height:250px; clear:both; border:solid 1px #C9DAFB;" >
+                            <table class="table">
+                                <tr ng-repeat="post444 in posts444 | filter: searchKeyword ">
+                                    <td>{{post444.nombrePais}}</td>
+                                    <td>-</td>
+                                    <td>{{post444.nombreCiudad}}</td>
+                                    <td><input id="{{post444.idCiudad}}" type="radio" ng-click="sete444(post444.nombrePais,post444.nombreCiudad,post444.idPais,post444.idCiudad)" ></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>    
+            
+
+            <div class="form-group">
+                <label class="control-label col-xs-3 col-sm-3 col-md-3" for="dir">Direcci&oacute;n:</label>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <input ng-model="direccion" type="text" class="form-control" id="dir" maxlength="39" style="border:solid 1px #E0EDFA;" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-3 col-sm-3 col-md-3" for="tel">Tel&eacute;fono M&oacute;vil:</label>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <input ng-model="telefono" type="text" class="form-control" id="tel" maxlength="12" style="border:solid 1px #E0EDFA;" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-3 col-sm-3 col-md-3" for="email">Email:</label>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <input ng-model="mail" type="email" class="form-control" id="email" placeholder="ejemplo: maria123@midominio.com" maxlength="29" style="border:solid 1px #E0EDFA;" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-3 col-sm-3 col-md-3" for="pwd2">Password:</label>
+                <div class="col-xs-6 col-sm-6 col-md-6">          
+                    <input ng-model="password" type="password" class="form-control" id="pwd" maxlength="29" style="border:solid 1px #E0EDFA;" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-3 col-sm-3 col-md-3" for="pwd">Repetir password:</label>
+                <div class="col-xs-6 col-sm-6 col-md-6">          
+                    <input ng-model="password2" type="password" class="form-control" id="pwd2" maxlength="29" style="border:solid 1px #E0EDFA;" required>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-xs-3 col-sm-3 col-md-3" for="pwd">&nbsp;</label>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <br>        
+                    <p style="font-size:11px; text-align:right; color:#585858;">Al hacer clic en Registrarse, aceptas los <a href="terminosycondiciones.php">Terminos y Condiciones</a> de uso del servicio</p>
+                </div>
+            </div>
+
+
+            <div id="somethingX" class="container" style="display:none;">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-2" style="background-color: rgba(0, 0, 0, 0.1);">
+                    <h5 style="color:red;"><i>Parece que este correo electrónico ya tiene una cuenta en I´M TALENT<br>Por favor ingresa un email diferente ó <a href="login.html">pulsa aqui para iniciar sesión</a></i></h5>
+                </div>
+            </div>
+
+
+            <div class="form-group">        
+                <div class="col-xs-6 col-sm-4 col-md-2 col-xs-offset-6 col-sm-offset-6 col-md-offset-7">
+                    <br>
+                    <button ng-click="reg444()" class="btn btn-default"><b>&nbsp;&nbsp;&nbsp;Registrarse&nbsp;&nbsp;&nbsp;</b></button>
+                </div>
+            </div>
+        </form>
+
+           
+</div>  <!-- div container -->
+
+
+
+
+
+<div id="loginW" style="display:none; padding:0;">
+    <div class="container-fluid" style="margin-top:5%; margin-bottom:5%; padding:0;">
+        <div class="col-xs-12 col-sm-12 col-md-8  col-sm-offset-0 col-md-offset-4" style="color:#585858; padding:0;">
+            <h4>Su registro se ha completado exitosamente!</h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img style="width:6%; height:6%;" src="../media/vb.png">
+            <br><br><br><br>
+            <a href="login.html" class="btn btn-primary" role="button">Iniciar sesion</a>  
+        </div>  <!-- div columna central-->
+    </div>  <!-- div container fluid-->
+</div>  <!--cierra login -->
+
+
+
+
+
+
+<!-- ...........................................................................................................  -->
+
+
+
+
+
+</body>
+</html>
