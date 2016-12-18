@@ -130,7 +130,15 @@
 
 
 
-<section id="personRead" style="display:none; margin-top:1em;">
+<section id="personRead" style="display:none; margin-top:2px;">
+
+
+
+<div class="col-xs-12" ng-click="hs('personRead','vacantesRead')">
+    <h2 class="col-xs-12 col-sm-12 col-md-12 fondo_azul_oscuro">ver vacantes</h2>
+</div>
+<div style="clear:both; height:1em;"></div> <!-- espacio -->
+
 
 
 <div class="container">
@@ -413,6 +421,22 @@
 </div> <!-- container fluid -->
 
 
+
+
+
+
+
+
+
+
+<div class="col-xs-12" ng-click="hs('personRead','vacantesRead')">
+    <h2 class="col-xs-12 col-sm-12 col-md-12 fondo_azul_oscuro">ver vacantes</h2>
+</div>
+<div style="clear:both; height:2em;"></div> <!-- espacio -->
+
+
+
+
 </section>
 
 
@@ -448,7 +472,7 @@
 
 
 
-<section id="vacantesRead" style="display:block; margin-top:3em;">
+<section id="vacantesRead" style="display:none; margin-top:3em;">
 
   <div class="container">
 
@@ -463,10 +487,31 @@
                     {{vacante.descripcionVacante | cortarTexto:250}}  
                 </div>
 
-                <div id="vacanteAceptadoFull_{{$index}}" ng-click="hs('vacanteAceptadoFull_' + $index , 'vacanteAceptadoPreview_' + $index )" style="display:none; background-color:#1aff1a; border-bottom:#585858; padding:1em;" >
-                    <h3 class="tituloVacante"><b>{{vacante.tituloVacante}}</b></h3> 
-                    {{vacante.descripcionVacante}} 
-                </div>
+
+                <div id="vacanteAceptadoFull_{{$index}}" style="display:none; background-color:#1aff1a; border-bottom:#585858; padding:1em;">
+                    <div  ng-click="hs('vacanteAceptadoFull_' + $index , 'vacanteAceptadoPreview_' + $index )">
+                        <h3 class="tituloVacante"><b>{{vacante.tituloVacante}}</b></h3> 
+                        {{vacante.descripcionVacante}} 
+                    </div>
+                    <div class="row" style="margin-top:1em;">
+                        <div class="col-xs-6 col-xs-offset-0">
+                            <b>Nombre Empresa: </b> {{vacante.comercialEmpresa}}
+                            <br>
+                            <b>Lugar de Trabajo: </b> {{vacante.nombreCiudad}} - {{vacante.nombrePais}}
+                            <br>
+                        </div>
+                        <div class="col-xs-6 col-xs-offset-0">
+                            <b>Contacto: </b> {{vacante.responsableVacante}}
+                            <br>
+                            <b>Email: </b> {{vacante.emailEntrevista}}
+                            <br>
+                            <b>Tel&eacute;fono: </b> {{vacante.telefonoEntrevista}}
+                            <br>
+                        </div>
+                    </div>
+
+                </div>                      
+                  
 
                 <div style="clear:both; height:1em;"></div> <!-- espacio -->
 
@@ -482,9 +527,18 @@
                     {{vacante2.descripcionVacante | cortarTexto:250}}  
                 </div>
 
-                <div id="vacantePendingFull_{{$index}}" ng-click="hs('vacantePendingFull_' + $index , 'vacantePendingPreview_' + $index )" style="display:none; background-color:#FBFC58; border-bottom:#585858; padding:1em;" >
-                    <h3 class="tituloVacante"><b>{{vacante2.tituloVacante}}</b></h3> 
-                    {{vacante2.descripcionVacante}}
+                <div id="vacantePendingFull_{{$index}}"  style="display:none; background-color:#FBFC58; border-bottom:#585858; padding:1em;" >
+                    <div class="row" ng-click="hs('vacantePendingFull_' + $index , 'vacantePendingPreview_' + $index )">
+                        <h3 class="tituloVacante"><b>{{vacante2.tituloVacante}}</b></h3> 
+                        {{vacante2.descripcionVacante}}
+                    </div>
+                    
+                    <div class="row" style="margin-top:1em;">
+                        <div class="col-xs-2 col-xs-offset-10">
+                            <span style="color:#585858;"><i>Esperando...</i></span>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div style="clear:both; height:1em;"></div> <!-- espacio -->
@@ -510,7 +564,8 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-2 col-xs-offset-10">
-                            <button ng-click="solicitudCreate(vacante3.idVacante,vacante3.idEmpresa)"><i class="fa fa-check fa-1x" style="color:#EBEBEB;" aria-hidden="true"></i>aplicar</button>
+                            <button id="botonAplicar_{{$index}}" class="btn btn-primary" ng-click="hs('botonAplicar_' + $index , 'botonAplicarConfirmar_' + $index)" style="width:100%; display:block;">Aplicar</i></button>
+                            <button id="botonAplicarConfirmar_{{$index}}" class="btn btn-warning" ng-click="solicitudCreate(vacante3.idVacante,vacante3.idEmpresa,'botonAplicarConfirmar_' + $index , 'botonAplicar_' + $index )" style="width:100%; display:none;">Confirmar</button>
                         </div>
                     </div>
                 </div>

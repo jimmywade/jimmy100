@@ -299,7 +299,7 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
 
 
     //aplicarVacante
-    $scope.solicitudCreate=function(idVacante,idEmpresa){
+    $scope.solicitudCreate=function(idVacante,idEmpresa,h,s){
         //console.log('vacante es: ' + idVacante);
         //console.log('empresa es: ' + idEmpresa);
         var mivariable = $scope.getToken();
@@ -320,7 +320,7 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
                 console.log(config);
                 console.log('-----------------------');
 
-                /*
+                
                 if(status == 200){
                     var foo = $scope.getObjects('AcceptedRead');
                     var pending = $scope.pendingRead();
@@ -330,24 +330,19 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
                                                                        $scope.listado;
                                                                        $scope.listado2;
                                                                        $scope.listado3;
-                                                                       //$scope.vacante.tituloVacante;
-                                                                       //$scope.vacante2.tituloVacante;
-                                                                       //$scope.vacante3.tituloVacante;
-                                                                       //$scope.vacante.descripcionVacante;
-                                                                       //$scope.vacante2.descripcionVacante;
-                                                                       //$scope.vacante3.descripcionVacante;
                                                                    });
                                          },2000
                     );
                    
                 }
-                */
+                
                 
             })
             .error(function(err){
                 console.log('no se pudo consultar webservice direccionUpdate');
             });
             
+        var hideShow = $scope.hs(h,s);
     }
     
 
