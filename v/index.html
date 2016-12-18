@@ -14,6 +14,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
 
+
     <script type="text/javascript" src="../libs/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../libs/angular/angular.min.js"></script>
@@ -23,6 +24,7 @@
     <script src="../libs/angular/ng-file-upload.min.js"></script>
     <script type="text/javascript" src="../c/controladores_1.js"></script>
     <script type="text/javascript" src="../c/persons.js"></script>
+
 
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -482,7 +484,7 @@
 
                 <div id="vacantePendingFull_{{$index}}" ng-click="hs('vacantePendingFull_' + $index , 'vacantePendingPreview_' + $index )" style="display:none; background-color:#FBFC58; border-bottom:#585858; padding:1em;" >
                     <h3 class="tituloVacante"><b>{{vacante2.tituloVacante}}</b></h3> 
-                    {{vacante2.descripcionVacante}} 
+                    {{vacante2.descripcionVacante}}
                 </div>
 
                 <div style="clear:both; height:1em;"></div> <!-- espacio -->
@@ -500,9 +502,17 @@
                     {{vacante3.descripcionVacante | cortarTexto:250}}  
                 </div>
 
-                <div id="vacanteNothingFull_{{$index}}" ng-click="hs('vacanteNothingFull_' + $index , 'vacanteNothingPreview_' + $index )" style="display:none; background-color:#ffcccc; border-bottom:#585858; padding:1em;" >
-                    <h3 class="tituloVacante"><b>{{vacante3.tituloVacante}}</b></h3> 
-                    {{vacante3.descripcionVacante}} 
+                <div id="vacanteNothingFull_{{$index}}" style="display:none; background-color:#ffcccc; border-bottom:#585858; padding:1em;" >
+                    <div class="row" ng-click="hs('vacanteNothingFull_' + $index , 'vacanteNothingPreview_' + $index )">
+                        <h3 class="tituloVacante"><b>{{vacante3.tituloVacante}}</b></h3> 
+                        {{vacante3.descripcionVacante}}
+                        <div style="clear:both; height:1em;"></div> <!-- espacio -->
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2 col-xs-offset-10">
+                            <button ng-click="solicitudCreate(vacante3.idVacante,vacante3.idEmpresa)"><i class="fa fa-check fa-1x" style="color:#EBEBEB;" aria-hidden="true"></i>aplicar</button>
+                        </div>
+                    </div>
                 </div>
 
                 <div style="clear:both; height:1em;"></div> <!-- espacio -->

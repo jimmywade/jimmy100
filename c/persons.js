@@ -254,8 +254,6 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
                 console.log('no se pudo consultar -> ' + nombreObject);
             });
 
-            alert($scope.listado2);
-
  
     }
 
@@ -287,9 +285,76 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
                         console.log('no se pudo consultar -> ' + nombreObject);
                     });
 
-                    alert($scope.listado3);
  
     }
+
+
+
+
+
+
+
+
+
+
+
+    //aplicarVacante
+    $scope.solicitudCreate=function(idVacante,idEmpresa){
+        //console.log('vacante es: ' + idVacante);
+        //console.log('empresa es: ' + idEmpresa);
+        var mivariable = $scope.getToken();
+        //console.log('usuario es: ' + $scope.token);
+
+        
+        $scope.createSolicitud = [];
+        $http.post("../c/solicitudCreate.php",{'idPersona':$scope.token,'idVacante':idVacante,'idEmpresa':idEmpresa})
+            .success(function(data,status,headers,config){
+                $scope.createSolicitud = data;
+                console.log('---data: ---');
+                console.log(data);
+                console.log('-----------------------');
+                console.log('STATUS: ' + status );
+                console.log('-----------------------');
+                console.log('HEADERS:' + headers );
+                console.log('-----------------------');
+                console.log(config);
+                console.log('-----------------------');
+
+                /*
+                if(status == 200){
+                    var foo = $scope.getObjects('AcceptedRead');
+                    var pending = $scope.pendingRead();
+                    var nothing = $scope.nothingRead();
+                    setTimeout(function(){ 
+                                            $scope.$apply(function(){
+                                                                       $scope.listado;
+                                                                       $scope.listado2;
+                                                                       $scope.listado3;
+                                                                       //$scope.vacante.tituloVacante;
+                                                                       //$scope.vacante2.tituloVacante;
+                                                                       //$scope.vacante3.tituloVacante;
+                                                                       //$scope.vacante.descripcionVacante;
+                                                                       //$scope.vacante2.descripcionVacante;
+                                                                       //$scope.vacante3.descripcionVacante;
+                                                                   });
+                                         },2000
+                    );
+                   
+                }
+                */
+                
+            })
+            .error(function(err){
+                console.log('no se pudo consultar webservice direccionUpdate');
+            });
+            
+    }
+    
+
+
+
+
+
 
 
 
@@ -376,8 +441,8 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
 
     //update estado civil
     $scope.civilUpdate=function(){
-        alert($scope.token);
-        alert($scope.idCivil);
+        //alert($scope.token);
+        //alert($scope.idCivil);
         $scope.v = [];
         $http.post("../c/civilUpdate.php",{'idPersona':$scope.token,'idCivil':$scope.idCivil})
             .success(function(data,status,headers,config){
