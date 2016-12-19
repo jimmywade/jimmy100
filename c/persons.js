@@ -7,7 +7,103 @@ var app = angular.module('personasApp',['ngFileUpload']);
 app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $scope, Upload){
 
 
-    // upload later on form submit or something similar
+ 
+
+
+
+    //set default values
+    $scope.setDefaultValues=function(){
+        $scope.token= "";
+        $scope.profilePicture = "";
+        $scope.nombrePersona = "";
+        $scope.nacimientoPersona = "";
+        $scope.direccionPersona = "";
+        $scope.nombreCivil = "";
+        $scope.nombreCiudad = "";
+        $scope.nombrePais = "";
+        $scope.emailPersona='edi@gmail.com';
+        $scope.contraseniaPersona='123';
+    }
+
+
+    
+
+
+
+
+/*
+*********************************************************************************************
+Personas
+*********************************************************************************************
+*/
+
+
+
+    //perfilRead LOGIN
+    $scope.vLogin=function(h,s,ss){
+
+        if(
+            ($scope.emailPersona!=undefined)&&($scope.emailPersona!='')
+            &&($scope.contraseniaPersona!=undefined)&&($scope.contraseniaPersona!='')
+            ){
+                $scope.v = [];
+                
+                $http.post("../c/profileRead.php", {
+                                                    'emailPersona':$scope.emailPersona,
+                                                    'contraseniaPersona':$scope.contraseniaPersona
+                })
+                .success(function(data,status,headers,config){ 
+                    $scope.v = data;
+                    console.log(data);
+                    console.log('-----------------------');
+                    console.log('STATUS: ' + status );
+                    console.log('-----------------------');
+                    console.log('HEADERS:' + headers );
+                    console.log('-----------------------');
+                    console.log(config);
+                    console.log('-----------------------');
+
+                    if(status==200){
+                        var foo = $scope.hs(h,s);
+                        var foo = $scope.setDivActive(s);
+                        var foo = $scope.showSingle(ss);
+                        var foo = $scope.getObjects('AcceptedRead');
+                        var pending = $scope.pendingRead();
+                        var nothing = $scope.nothingRead();
+                        var foo = $scope.setToken($scope.v[0].idPersona);
+                        var foo = $scope.getToken();
+                        $scope.profilePicture = $scope.v[0].imgPersona;
+                        $scope.nombrePersona = $scope.v[0].nombrePersona;
+                        $scope.nacimientoPersona = $scope.v[0].nacimientoPersona;
+                        $scope.direccionPersona = $scope.v[0].direccionPersona;
+                        $scope.nombreCivil = $scope.v[0].nombreCivil;
+                        $scope.nombreCiudad = $scope.v[0].nombreCiudad;
+                        $scope.nombrePais = $scope.v[0].nombrePais;
+                    }
+
+            });
+
+        }else{
+            $scope.errorLogin = "Oops! ...parece que faltan datos importantes";
+            var fa = document.getElementById("mensajeAviso");
+            fa.style.display = "block";
+            var borde = document.getElementById("bordeAviso");
+            borde.style.border = "solid 2px red";
+        }
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+   // upload later on form submit or something similar
     $scope.submit = function() {
       if ($scope.form.file.$valid && $scope.file) {
         $scope.upload($scope.file);
@@ -71,97 +167,11 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
 
 
 
-    //set default values
-    $scope.setDefaultValues=function(){
-        $scope.token= "";
-        $scope.profilePicture = "";
-        $scope.nombrePersona = "";
-        $scope.nacimientoPersona = "";
-        $scope.direccionPersona = "";
-        $scope.nombreCivil = "";
-        $scope.nombreCiudad = "";
-        $scope.nombrePais = "";
-        $scope.emailPersona='edi@gmail.com';
-        $scope.contraseniaPersona='123';
-    }
-
-
-    
-
-
-
-    //perfilRead LOGIN
-    $scope.vLogin=function(h,s){
-
-        if(
-            ($scope.emailPersona!=undefined)&&($scope.emailPersona!='')
-            &&($scope.contraseniaPersona!=undefined)&&($scope.contraseniaPersona!='')
-            ){
-                $scope.v = [];
-                
-                $http.post("../c/profileRead.php", {
-                                                    'emailPersona':$scope.emailPersona,
-                                                    'contraseniaPersona':$scope.contraseniaPersona
-                })
-                .success(function(data,status,headers,config){ 
-                    $scope.v = data;
-                    console.log(data);
-                    console.log('-----------------------');
-                    console.log('STATUS: ' + status );
-                    console.log('-----------------------');
-                    console.log('HEADERS:' + headers );
-                    console.log('-----------------------');
-                    console.log(config);
-                    console.log('-----------------------');
-
-                    if(status==200){
-                        var foo = $scope.hs(h,s);
-                        var foo = $scope.getObjects('AcceptedRead');
-                        var pending = $scope.pendingRead();
-                        var nothing = $scope.nothingRead();
-                        var foo = $scope.setToken($scope.v[0].idPersona);
-                        var foo = $scope.getToken();
-                        $scope.profilePicture = $scope.v[0].imgPersona;
-                        $scope.nombrePersona = $scope.v[0].nombrePersona;
-                        $scope.nacimientoPersona = $scope.v[0].nacimientoPersona;
-                        $scope.direccionPersona = $scope.v[0].direccionPersona;
-                        $scope.nombreCivil = $scope.v[0].nombreCivil;
-                        $scope.nombreCiudad = $scope.v[0].nombreCiudad;
-                        $scope.nombrePais = $scope.v[0].nombrePais;
-                    }
-
-            });
-
-        }else{
-            $scope.errorLogin = "Oops! ...parece que faltan datos importantes";
-            var fa = document.getElementById("mensajeAviso");
-            fa.style.display = "block";
-            var borde = document.getElementById("bordeAviso");
-            borde.style.border = "solid 2px red";
-        }
-        
-    }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /*
     //reload el perfil
     $scope.reload=function(webservice){
         //load todos los objetos principales
@@ -191,166 +201,7 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
     }
 
 
-
-
-
-
-
-
-
-
-
-
-    //accepted GREEN
-    $scope.getObjects=function(nombreObject){
-                //load todos los objetos principales
-                $scope.listado = [];
-                $http.get("../c/" +  nombreObject + ".php")
-                    .success(function(data,status,headers,config){
-                        $scope.listado = data;
-                        console.log(data);
-                        console.log('-----------------------');
-                        console.log('STATUS: ' + status );
-                        console.log('-----------------------');
-                        console.log('HEADERS:' + headers );
-                        console.log('-----------------------');
-                        console.log(config);
-                    })
-                    .error(function(err){
-                        console.log('no se pudo consultar -> ' + nombreObject);
-                    });
-    };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //pending YELLOW
-    $scope.pendingRead=function(){
-                   
-        $scope.listado2 = [];
-        $http.get("../c/pendingRead.php")
-            .success(function(data,status,headers,config){
-                $scope.listado2 = data;
-                console.log(data);
-                console.log('-----------------------');
-                console.log('STATUS: ' + status );
-                console.log('-----------------------');
-                console.log('HEADERS:' + headers );
-                console.log('-----------------------');
-                console.log(config);
-            })
-            .error(function(err){
-                console.log('no se pudo consultar -> ' + nombreObject);
-            });
-
- 
-    }
-
-
-
-
-
-
-
-
-
-
-    //nothing RED
-    $scope.nothingRead=function(){
-
-                $scope.listado3 = [];
-                $http.get("../c/nothingRead.php")
-                    .success(function(data,status,headers,config){
-                        $scope.listado3 = data;
-                        console.log(data);
-                        console.log('-----------------------');
-                        console.log('STATUS: ' + status );
-                        console.log('-----------------------');
-                        console.log('HEADERS:' + headers );
-                        console.log('-----------------------');
-                        console.log(config);
-                    })
-                    .error(function(err){
-                        console.log('no se pudo consultar -> ' + nombreObject);
-                    });
-
- 
-    }
-
-
-
-
-
-
-
-
-
-
-
-    //aplicarVacante
-    $scope.solicitudCreate=function(idVacante,idEmpresa,h,s){
-        //console.log('vacante es: ' + idVacante);
-        //console.log('empresa es: ' + idEmpresa);
-        var mivariable = $scope.getToken();
-        //console.log('usuario es: ' + $scope.token);
-
-        
-        $scope.createSolicitud = [];
-        $http.post("../c/solicitudCreate.php",{'idPersona':$scope.token,'idVacante':idVacante,'idEmpresa':idEmpresa})
-            .success(function(data,status,headers,config){
-                $scope.createSolicitud = data;
-                console.log('---data: ---');
-                console.log(data);
-                console.log('-----------------------');
-                console.log('STATUS: ' + status );
-                console.log('-----------------------');
-                console.log('HEADERS:' + headers );
-                console.log('-----------------------');
-                console.log(config);
-                console.log('-----------------------');
-
-                
-                if(status == 200){
-                    var foo = $scope.getObjects('AcceptedRead');
-                    var pending = $scope.pendingRead();
-                    var nothing = $scope.nothingRead();
-                    setTimeout(function(){ 
-                                            $scope.$apply(function(){
-                                                                       $scope.listado;
-                                                                       $scope.listado2;
-                                                                       $scope.listado3;
-                                                                   });
-                                         },2000
-                    );
-                   
-                }
-                
-                
-            })
-            .error(function(err){
-                console.log('no se pudo consultar webservice direccionUpdate');
-            });
-            
-        var hideShow = $scope.hs(h,s);
-    }
-    
-
-
-
-
-
-
+    */
 
 
 
@@ -392,8 +243,6 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
             });
     }
     
-
-
 
 
 
@@ -512,6 +361,34 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
 
 
 
+/*
+*********************************************************************************************
+Academicas
+*********************************************************************************************
+*/
+
+
+
+
+
+    $scope.listarAcademicas=function(){
+        
+        $scope.academicas = [];
+        $http.post("../c/academicasRead.php" , {'idPersona':$scope.token})
+            .success(function(data){
+                console.log('dataAcademicas es: ' + data);
+                $scope.academicas = data;
+
+
+            })
+            .error(function(err){
+
+            }); 
+
+    }
+
+
+    
 
 
 
@@ -521,7 +398,162 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
 
 
 
+/*
+*********************************************************************************************
+Vacantes
+*********************************************************************************************
+*/
 
+
+
+
+
+    //accepted GREEN
+    $scope.getObjects=function(nombreObject){
+                //load todos los objetos principales
+                $scope.listado = [];
+                $http.get("../c/" +  nombreObject + ".php")
+                    .success(function(data,status,headers,config){
+                        $scope.listado = data;
+                        console.log(data);
+                        console.log('-----------------------');
+                        console.log('STATUS: ' + status );
+                        console.log('-----------------------');
+                        console.log('HEADERS:' + headers );
+                        console.log('-----------------------');
+                        console.log(config);
+                    })
+                    .error(function(err){
+                        console.log('no se pudo consultar -> ' + nombreObject);
+                    });
+    };
+
+
+
+
+
+
+
+
+
+    //pending YELLOW
+    $scope.pendingRead=function(){
+                   
+        $scope.listado2 = [];
+        $http.get("../c/pendingRead.php")
+            .success(function(data,status,headers,config){
+                $scope.listado2 = data;
+                console.log(data);
+                console.log('-----------------------');
+                console.log('STATUS: ' + status );
+                console.log('-----------------------');
+                console.log('HEADERS:' + headers );
+                console.log('-----------------------');
+                console.log(config);
+            })
+            .error(function(err){
+                console.log('no se pudo consultar -> ' + nombreObject);
+            });
+
+ 
+    }
+
+
+
+
+
+
+
+    //nothing RED
+    $scope.nothingRead=function(){
+
+                $scope.listado3 = [];
+                $http.get("../c/nothingRead.php")
+                    .success(function(data,status,headers,config){
+                        $scope.listado3 = data;
+                        console.log(data);
+                        console.log('-----------------------');
+                        console.log('STATUS: ' + status );
+                        console.log('-----------------------');
+                        console.log('HEADERS:' + headers );
+                        console.log('-----------------------');
+                        console.log(config);
+                    })
+                    .error(function(err){
+                        console.log('no se pudo consultar -> ' + nombreObject);
+                    });
+
+ 
+    }
+
+
+
+
+
+
+
+
+    //aplicarVacante
+    $scope.solicitudCreate=function(idVacante,idEmpresa,h,s){
+        //console.log('vacante es: ' + idVacante);
+        //console.log('empresa es: ' + idEmpresa);
+        var mivariable = $scope.getToken();
+        //console.log('usuario es: ' + $scope.token);
+
+        
+        $scope.createSolicitud = [];
+        $http.post("../c/solicitudCreate.php",{'idPersona':$scope.token,'idVacante':idVacante,'idEmpresa':idEmpresa})
+            .success(function(data,status,headers,config){
+                $scope.createSolicitud = data;
+                console.log('---data: ---');
+                console.log(data);
+                console.log('-----------------------');
+                console.log('STATUS: ' + status );
+                console.log('-----------------------');
+                console.log('HEADERS:' + headers );
+                console.log('-----------------------');
+                console.log(config);
+                console.log('-----------------------');
+
+                
+                if(status == 200){
+                    var foo = $scope.getObjects('AcceptedRead');
+                    var pending = $scope.pendingRead();
+                    var nothing = $scope.nothingRead();
+                    setTimeout(function(){ 
+                                            $scope.$apply(function(){
+                                                                       $scope.listado;
+                                                                       $scope.listado2;
+                                                                       $scope.listado3;
+                                                                   });
+                                         },2000
+                    );
+                   
+                }
+                
+                
+            })
+            .error(function(err){
+                console.log('no se pudo consultar webservice direccionUpdate');
+            });
+            
+        var hideShow = $scope.hs(h,s);
+    }
+    
+
+
+
+
+
+
+
+
+
+/*
+*********************************************************************************************
+Other
+*********************************************************************************************
+*/
 
 
 
@@ -577,6 +609,35 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
 
 
 
+    //turn off este
+    $scope.setDivActive=function(active){
+
+        timer7 = setTimeout(function(){ $scope.divActive = active; console.log('div active: ' + $scope.divActive); }, 300);
+
+    }
+
+
+
+
+
+
+    //turn off current , turn on main
+    $scope.showSingle=function(este){
+        on(este);
+    }
+
+
+
+
+    //turn off este
+    $scope.hideSingle=function(este){
+        off(este);
+    }
+
+
+
+
+
     /*
     $scope.pasarCorp=function(pasada){
 
@@ -596,6 +657,7 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
 
 
 
+
     /*
     $scope.wildparty=function(fun){
         var fun=fun;
@@ -605,6 +667,37 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
         }
     }  
     */
+
+
+
+
+    //destruir sesion 
+    $scope.destruirSesion=function(){
+        token = undefined;
+        $scope.token = token;
+        localStorage.setItem('token', token);
+        location.reload();
+    }
+
+    
+
+
+
+
+    $scope.geo=function(){
+
+        $scope.geolocation = [];
+        $http.get("../m/i555.php")
+            .success(function(data){
+                console.log(data);
+                $scope.geolocation = data;
+
+            })
+            .error(function(err){
+
+            }); 
+
+    }
 
     
 }]);

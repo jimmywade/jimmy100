@@ -44,8 +44,46 @@
 
 
 <section ng-controller="controllerV">
-<section data-ng-init="setDefaultValues(); setDefaultViews()">
+<section data-ng-init="setDefaultValues(); setDefaultViews(); listarAcademicas()">
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section id="mainMenu" style="display:none;">
+    <div class="container" style="margin-top:10px;">
+        <div class="row main-menu">
+            <section>
+                <section class="col-xs-6" >
+                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left"></span></button>
+                </section>
+                <section class="col-xs-6"  style="margin-top:1px; text-align:right;">
+                    <button type="button" class="btn btn-primary" onclick="var a = 'configA'; var b = 'configB'; detalles(a,b)"><span class="glyphicon glyphicon-th-list"></span></button>
+                </section>
+            </section>
+
+                <section id="configA" style="display:none; text-align:right;" class="col-xs-12">
+                    <button class="btn btn-primary btn-config" ng-click="hs('personRead','vacantesRead'); hs('configA','configB')">Mi curriculum</button><br>
+                    <button class="btn btn-primary btn-config" ng-click="destruirSesion()">Salir </button><br>
+                </section>
+            
+                <section id="configB" style="display:block; text-align:right;" class="col-xs-12">
+                </section>
+        </div>
+            
+    </div>
+</section>
+
 
 
 
@@ -86,7 +124,7 @@
                                 <span class="input-group-addon"><img src="../media/app/images/key7.png" style="width:20px;"></span>
                             </div>
                         </div><br><br>
-                        <button class="btn btn-primary" ng-click="vLogin('loginActivity','personRead')">Ingresar</button>
+                        <button class="btn btn-primary" ng-click="vLogin('loginActivity','personRead','mainMenu')">Ingresar</button>
                     </div>
 
 
@@ -130,15 +168,15 @@
 
 
 
-<section id="personRead" style="display:none; margin-top:2px;">
+<section id="personRead" style="display:none; margin-top:1em;">
 
 
-
+<!-- 
 <div class="col-xs-12" ng-click="hs('personRead','vacantesRead')">
     <h2 class="col-xs-12 col-sm-12 col-md-12 fondo_azul_oscuro">ver vacantes</h2>
 </div>
-<div style="clear:both; height:1em;"></div> <!-- espacio -->
-
+<div style="clear:both; height:1em;"></div>
+-->
 
 
 <div class="container">
@@ -418,7 +456,7 @@
 
 
     </div> <!-- rows -->
-</div> <!-- container fluid -->
+</div> <!-- container -->
 
 
 
@@ -428,11 +466,215 @@
 
 
 
+
+
+
+
+
+
+
+
+<!-- informaciones academicas-->
+<div class="container">
+    <section class="row">
+        <h3 class="fondo-oscuro">Información Academica</h3>
+
+
+
+
+
+            <!-- mostrar ESTA informacion academica--> 
+            <div ng-repeat="academica in academicas" class="row fondo-gris">
+                <div class="col-xs-12 col-sm-5 col-md-5"><b>Titulo obtenido:</b> {{academica.tituloAcademica}}<br>{{academica.finalizacionAcademica}}</div>
+                <div class="col-xs-12 col-sm-4 col-md-4"><b>Institución:</b> {{academica.institucionAcademica}}<br> {{academica.nombreCiudad}} - {{academica.nombrePais}}</div>
+                <!-- se muestra inicialmente el boton y depende lo que diga el boton un div o el otro-->
+                <div class="col-xs-12 col-sm-2 col-md-2">
+                    
+                    <!-- este es el botton AGREGAR CERTIFICACION ó VER CERTIFICACION-->
+                    <div>
+                        <button class="btn btn-primary" style="display:block; font-size:13px;">{{academica.addAcademica}}</button>
+                    </div>
+                    
+                    <!-- botones-icono ATRAS y ABRIR, solo se mostrarán si el boton anterior dice VER CERTIFICACION-->
+                    <div class="col-xs-12 col-sm-12 col-md-12" style="display:none; padding:0; margin:0;">
+                        <button class="btn btn-primary">
+                            <span class="glyphicon glyphicon-menu-left"></span>
+                        </button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-primary">
+                            <span class = "glyphicon glyphicon-new-window" title="Open in new window"></span>
+                        </button>
+                    </div>
+                    
+                    <!-- boton SUBIR ARCHIVO solo se mostrará si el boton del div SHE2000000 dice AGREGAR CERTIFICACION-->
+                    <div  class="col-xs-12" style="display:none; padding:0; margin:0;">
+                        <div class="btn btn-primary" ngf-select="upload($file)"><button><i class="fa fa-file-image-o fa-4x" aria-hidden="true"></i></button></div>
+                        <h6><i>Seleccionar archivo</i></h6>
+                    </div>
+
+                </div>
+
+                <div class="col-xs-12 col-sm-1 col-md-1" style="text-align:right;">
+                    <button id="eliminarAcademicaA{{academica.bajo2}}" ng-click="o_d_e_c('eliminarAcademicaA'+academica.bajo2, 'eliminarAcademicaB'+academica.bajo2)" class="btn btn-default" style="display:block;"><span class="glyphicon glyphicon-remove" title="Eliminar esta INFORMACION ACADEMICA"></span></button>
+                    <button id="eliminarAcademicaB{{academica.bajo2}}" ng-click="eliminarEstaAcad(academica.idAcademica)" class="btn btn-danger" style="display:none;"><span class="glyphicon glyphicon-remove" title="Eliminar esta INFORMACION ACADEMICA"></span></button>                        
+                </div>
+
+
+            </div>
+            
+
+
+
+
+
+
+
+            <section id="informacion-academica1" class="container" style="padding:0; display:block;">
+            <section class="col-xs-12 col-sm-12 col-md-12  col-sm-offset-0 col-md-offset-0" style="text-align:right; margin-top:2px;">
+                <button onclick="var a = 'informacion-academica1'; var b = 'informacion-academica2'; detalles(a,b)" title="Agregar una INFORMACION ACADEMICA" type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+            </section>
+            </section> <!-- para que quede en iguales condiciones que el boton menos -->
+
+
+
+
+            <section id="informacion-academica2" class="container" style="padding:0; display:none;">
+
+                <section class="col-xs-12 col-sm-12 col-md-12  col-sm-offset-0 col-md-offset-0" style="text-align:right; margin-top:2px;">
+                    <button onclick="detalles('informacion-academica1','informacion-academica2')" title="Agregar informacion academica" type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
+                </section>
+
+
+                <section class="col-xs-12 col-sm-12 col-md-12  col-sm-offset-0 col-md-offset-0 fondo-gris2">
+                    <form id="formularioAcademico">
+
+                        <div class="col-xs-11 col-sm-12 col-md-6  col-sm-offset-0 col-md-offset-0" style="color:#585858;">
+
+                                <section id="psd2" class="container-fluid" style="margin-top:10px;">
+                                    <div id="titl" class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                                        <label for="ti">Titulo obtenido:</label>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                                        <div class="form-group">
+                                            <input ng-model="titulo" type="text" maxlength="50" class="form-control" id="ti" required>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section id="psx2" class="container-fluid" style="margin-top:20px;">
+                                    <div id="anioInicial" class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                                        <label for="yearInit">A&ntilde;o de inicio:</label>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                                        <div class="form-group">
+                                            <select class="form-control" id="yearFin" ng-model="inicio" required>
+                                                <script>
+                                                    var today = new Date();
+                                                    var year = today.getFullYear();
+
+                                                    var anioActual=year;
+                                                    var i=0;
+                                                    while(i<55){
+                                                        anioActual=anioActual-1;
+                                                        document.write('<option value="' + anioActual + '">'+ anioActual +'</option>');
+                                                        i=i+1;
+                                                    }
+                                                </script>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section id="psx3" class="container-fluid" style="margin-top:20px;">
+                                    <div id="anioFinal" class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                                        <label for="yearFin">A&ntilde;o finalizaci&oacute;n:</label>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                                        <div class="form-group">
+                                            <select class="form-control" id="yearFin" ng-model="fin" required>
+                                                <script>
+                                                    var today2 = new Date();
+                                                    var year2 = today2.getFullYear();
+
+                                                    var anioActual2=year2;
+                                                    var i2=0;
+                                                    while(i2<54){
+                                                        anioActual2=anioActual2-1;
+                                                        document.write('<option value="' + anioActual2 + '">'+ anioActual2 +'</option>');
+                                                        i2=i2+1;
+                                                    }
+                                                </script>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </section>
+                        </div>
+
+
+                        <div class="col-xs-11 col-sm-12 col-md-6  col-sm-offset-0 col-md-offset-0" style="color:#585858;">
+                                <section id="ps" class="container-fluid">
+                                    <div id="inst" class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                                        <label for="iedu">Nombre instituci&oacute;n:</label>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-8 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                                        <div class="form-group">
+                                            <input ng-model="institucion" type="text" maxlength="50" class="form-control" id="iedu" required>
+                                        </div>
+                                    </div>
+                                </section>
+                                
+
+                                <div style="border:solid 1px #D5D5D5; clear:both; border-radius:8px;">
+                                    <label style="padding-top:10px; padding-bottom:10px;">&nbsp;Ubicaci&oacute;n de la Instituci&oacute;n: <i>{{ciudad2}} - {{pais2}}</i></label>
+
+                                    <section id="cff" class="container-fluid" style="padding-bottom:10px;">
+                                        <div><span>&nbsp;&nbsp;Buscar </span><input type="text" ng-model="searchKeyword"></div>
+                                        <div style="clear:both; height:20px;"></div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-sm-offset-0 col-md-offset-0" style="padding:0; overflow:scroll; height:250px; clear:both; border:solid 1px #C9DAFB;" >
+                                            <table class="table">
+                                                <tr ng-repeat="location2 in geolocation | filter: searchKeyword ">
+                                                    <td>{{location2.nombrePais}}</td>
+                                                    <td>-</td>
+                                                    <td>{{location2.nombreCiudad}}</td>
+                                                    <td><input type="radio" ng-click="setear(location2.idPais,location2.idCiudad,location2.nombrePais,location2.nombreCiudad)" ></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </section>
+                                </div>
+                                
+                        </div>
+
+                        <section class="col-xs-12 col-sm-12 col-md-12  col-sm-offset-0 col-md-offset-0" style="text-align:right; margin-top:20px;">
+                        <button ng-click="enviaAcademica()" class="btn btn-default"><b>Guardar</b></button>
+                        </section>
+                        
+                    </form>
+
+
+                </section>
+            </section> <!-- el oculto que tiene el formulario nueva info academica -->
+
+
+
+
+    </section> <!-- informacion academica -->
+
+</div> <!-- cierra el div listar academicas -->  
+
+
+
+
+
+
+<!-- 
 
 <div class="col-xs-12" ng-click="hs('personRead','vacantesRead')">
     <h2 class="col-xs-12 col-sm-12 col-md-12 fondo_azul_oscuro">ver vacantes</h2>
 </div>
-<div style="clear:both; height:2em;"></div> <!-- espacio -->
+<div style="clear:both; height:2em;"></div> 
+
+-->
 
 
 
