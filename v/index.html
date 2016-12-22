@@ -44,7 +44,7 @@
 
 
 <section ng-controller="controllerV">
-<section data-ng-init="setDefaultValues(); setDefaultViews(); listarAcademicas()">
+<section data-ng-init="setDefaultValues(); setDefaultViews(); listarAcademicas(); paisesRead()">
   
 
 
@@ -417,33 +417,71 @@
 
 
             <section id="countries1" class="separacion" style="display:block;">
-                <div data-ng-init="geo()" >
-                    <div class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-0" style="padding:0;">
-                        <label for="email">Pais y ciudad:</label>
+                <div class="col-xs-12 col-sm-12 col-md-4  col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                    <label for="email">Pais y ciudad:</label>
+                </div>
+                <div class="col-xs-10 col-sm-10 col-md-7 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                    <div class="form-group">
+                        <button class="btn btn-default" style="width:100%;">{{nombreCiudad}} - {{nombrePais}}</button>
                     </div>
-                    <div class="col-xs-10 col-sm-10 col-md-7 col-sm-offset-0 col-md-offset-0" style="padding:0;">
-                        <div class="form-group">
-                            <button class="btn btn-default" style="width:100%;">{{nombreCiudad}} - {{nombrePais}}</button>
-                        </div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-1 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                    <div class="form-group">
+                        <button ng-click="hs('countries1','countries2')" title="save" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
                     </div>
-                    <div class="col-xs-2 col-sm-2 col-md-1 col-sm-offset-0 col-md-offset-0" style="padding:0;">
-                        <div class="form-group">
-                            <button onclick="detalles('countries1','countries2')" title="save" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
-                        </div>
-                    </div>
-                </div>    
+                </div>   
             </section>
 
 
 
             <section id="countries2" style="display:none;">
-              <div id="roller14" class="col-xs-12 col-sm-4 col-md-4 col-sm-offset-0 col-md-offset-0" style="text-align:left; padding:0;">
-                  <label>Pais y ciudad:</label>
-              </div>
-              
-              <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-0 col-md-offset-0" style="padding:0;">
-                  
-              </div>
+                <div id="roller14" class="col-xs-12 col-sm-4 col-md-4 col-sm-offset-0 col-md-offset-0" style="text-align:left; padding:0;">
+                    <label>Pais y ciudad:</label>
+                </div>
+                
+                <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                    <div class="row">
+                        <div class="col-xs-6" style="padding:0;">
+                            <form class="navbar-form" role="search">
+                                <div class="input-group add-on">
+                                    <input class="form-control" name="srch-term" id="srch-term" type="text" placeholder="Pais">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-xs-6" style="padding:0;">
+                            <div style="height:100px;overflow:hidden;" ng-repeat="country in countries">
+                                <div ng-click="setCountry(country.idPais)">
+                                    {{country.nombrePais}}  
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                    <div class="row">
+                        <div class="col-xs-6" style="padding:0;">
+                            <form class="navbar-form" role="search">
+                                <div class="input-group add-on">
+                                    <input class="form-control" name="srch-term" id="srch-term" type="text" placeholder="Ciudad">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-xs-6" style="padding:0;">
+                            <div style="height:100px;overflow:hidden;" ng-repeat="city in cities">
+                                <div ng-click="updateCiudad(city.idCiudad)">
+                                    {{city.nombreCiudad}}  
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
 

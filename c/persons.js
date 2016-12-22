@@ -682,24 +682,112 @@ Other
     
 
 
+/*
+***********************************************************************
+Location
+***********************************************************************
+*/
 
 
-    $scope.geo=function(){
 
-        $scope.geolocation = [];
-        $http.get("../m/i555.php")
+
+
+
+
+    $scope.paisesRead=function(){
+        
+        $scope.countries = [];
+        $http.get("../c/paisesRead.php")
             .success(function(data){
+                console.log('xxxxxxxxxxxxxxxxxxxxx');
                 console.log(data);
-                $scope.geolocation = data;
+                console.log('xxxxxxxxxxxxxxxxxxxxx');
+
+                $scope.countries = data;
 
             })
             .error(function(err){
 
             }); 
-
     }
 
     
+
+
+
+
+    $scope.setCountry=function(idPais){
+        $scope.country = idPais;
+        
+
+    }
+
+
+
+
+    $scope.setCountry=function(pais){
+       //hacer la consulta de todas las ciudades del pais que recibe como parametro
+        
+       // setear $scope.ciudades[]
+       //para mostrar el listado de ciudades 
+    }
+
+
+
+
+
+    $scope.updateCiudad=function(idCiudad){
+        $scope.city = idCiudad;
+
+        $scope.token = $scope.getToken();
+
+        alert('pais es: ' + $scope.country );
+        alert('ciudad es: ' + $scope.city );
+        alert('token es: ' + $scope.token );
+        
+        $scope.ciudadUpdated = [];
+        $http.post("../c/updateCiudad.php",{'idPersona':$scope.token,'idCiudad':idVacante})
+            .success(function(data,status,headers,config){
+                $scope.ciudadUpdated = data;
+                console.log('---data: ---');
+                console.log(data);
+                console.log('-----------------------');
+                console.log('STATUS: ' + status );
+                console.log('-----------------------');
+                console.log('HEADERS:' + headers );
+                console.log('-----------------------');
+                console.log(config);
+                console.log('-----------------------');
+
+                if(status == 200){
+                    var foo = $scope.getObjects('AcceptedRead');
+                    var pending = $scope.pendingRead();
+                    var nothing = $scope.nothingRead();
+                    setTimeout(function(){ 
+                                            $scope.$apply(function(){
+                                                                       $scope.listado;
+                                                                       $scope.listado2;
+                                                                       $scope.listado3;
+                                                                   });
+                                         },2000
+                    );
+                   
+                }
+                
+                
+            })
+            .error(function(err){
+                console.log('no se pudo consultar webservice direccionUpdate');
+            });
+            
+        var hideShow = $scope.hs(h,s);
+    }
+
+
+
+
+
+
 }]);
 
 
