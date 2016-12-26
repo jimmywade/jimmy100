@@ -1,15 +1,15 @@
 <?php
 
+
 if(json_decode(file_get_contents("php://input"))){
 	$data = json_decode(file_get_contents("php://input"));
-	$idCiudad=$data->idCiudad;
+	$idPais=$data->idPais;
 }else{
-	$idCiudad=$_REQUEST['idCiudad'];
+	$idPais=$_REQUEST['idPais'];
 }
+
 
 
 require_once '../m/Ciudad.php';
 $Update = new Ciudad();
-$UPDATE = $Update->updateCiudad($idCiudad);
-
-?>
+$UPDATE = $Update->ciudadesRead($idPais);

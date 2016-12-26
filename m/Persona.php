@@ -196,32 +196,6 @@ class Persona{
 
 
 
-
-/*
-    public function loginPersona_hh($emailPersona, $passwordPersona) {
-		$sql = " SELECT codigoPersona FROM Personas 
-		WHERE emailPersona = '$emailPersona' 
-		AND passwordPersona = '$passwordPersona'
-		AND estadoPersona= 1
-		";
-		$result = mysqli_query($this->db->connect(), $sql);
-        $rows = array();
-			while($r = mysqli_fetch_array($result)){
-				$r['success']=1;
-                $rows[] = $r;
-	        }
-	    echo json_encode($rows);
-	}
-*/
-
-
-
-
-
-
-
-
-
 	public function myprofiRead($esteToken){
 		$sql = " SELECT * FROM Personas,instituciones,ciudades,paises
 		WHERE Personas.codigoPersona = '$esteToken'
@@ -241,54 +215,6 @@ class Persona{
 
 
 
-
-    /*
-	public function misproRead_hh($estePersona){
-		$sql = "SELECT * FROM participantes,proyectos,imagenes,Personas
-			WHERE participantes.codigoProyecto = proyectos.codigoProyecto 
-			AND proyectos.codigoProyecto = imagenes.codigoProyecto
-		    AND participantes.codigoPersona = '$estePersona' 
-			AND proyectos.estadoProyecto = 1
-			AND participantes.estadoParticipante = 1
-		    AND Personas.estadoPersona = 1 
-		    ORDER BY proyectos.fechaProyecto DESC
-		";
-		$result = mysqli_query($this->db->connect(), $sql);
-        $rows = array();
-			while($r = mysqli_fetch_array($result)){
-				$r['success']=1;
-                $rows[] = $r;
-	        }
-	    echo json_encode($rows);
-	}
-    */
-
-
-
-    /*
-	public function misproRead_hh($estePersona){
-		$sql = "
-		    SELECT * FROM participantes,proyectos,imagenes,Personas,instituciones,ciudades,paises
-			WHERE Personas.codigoPersona = '$estePersona'
-			AND participantes.liderParticipante = 1
-			AND participantes.codigoProyecto = proyectos.codigoProyecto
-			AND proyectos.codigoProyecto = imagenes.codigoProyecto
-			AND participantes.codigoPersona = Personas.codigoPersona
-			AND Personas.codigoInstitucion = instituciones.codigoInstitucion
-			AND instituciones.codigoCiudad = ciudades.codigoCiudad
-			AND instituciones.codigoPais = paises.codigopais
-			AND proyectos.estadoProyecto = 1
-			ORDER BY fechaProyecto DESC
-		";
-		$result = mysqli_query($this->db->connect(), $sql);
-        $rows = array();
-			while($r = mysqli_fetch_array($result)){
-				$r['success']=1;
-                $rows[] = $r;
-	        }
-	    echo json_encode($rows);
-	}
-    */
 
 
 
@@ -338,6 +264,27 @@ class Persona{
 
 	    echo json_encode($rows);
     }
+
+
+
+
+
+
+
+
+    public function ciudadUpdate($idPersona,$idCiudad){
+    	$sql = "
+    	UPDATE personas
+		SET idCiudad='$idCiudad'
+		WHERE idPersona='$idPersona';
+    	";
+    	$result = mysqli_query($this->db->connect(), $sql);
+        return $result;
+    }
+
+
+
+
 
 
 

@@ -23,6 +23,7 @@ app.controller('controllerV', ['$http', '$scope', 'Upload', function ($http, $sc
         $scope.nombrePais = "";
         $scope.emailPersona='edi@gmail.com';
         $scope.contraseniaPersona='123';
+        //$scope.citiesERR = 'excelente';
     }
 
 
@@ -54,6 +55,7 @@ Personas
                 })
                 .success(function(data,status,headers,config){ 
                     $scope.v = data;
+                    
                     console.log(data);
                     console.log('-----------------------');
                     console.log('STATUS: ' + status );
@@ -62,6 +64,7 @@ Personas
                     console.log('-----------------------');
                     console.log(config);
                     console.log('-----------------------');
+                    
 
                     if(status==200){
                         var foo = $scope.hs(h,s);
@@ -218,6 +221,7 @@ Personas
         $http.post("../c/nombreUpdate.php",{'idPersona':$scope.token,'nombrePersona':$scope.nombrePersona})
             .success(function(data,status,headers,config){
                 $scope.v = data;
+                /*
                 console.log(data);
                 console.log('-----------------------');
                 console.log('STATUS: ' + status );
@@ -226,6 +230,7 @@ Personas
                 console.log('-----------------------');
                 console.log(config);
                 console.log('-----------------------');
+                */
                 if(status == 200){
                     $scope.nombrePersona = $scope.v[0].nombrePersona;
                     setTimeout(function(){ 
@@ -253,6 +258,7 @@ Personas
         $http.post("../c/nacimientoUpdate.php",{'idPersona':$scope.token,'nacimientoPersona':$scope.nacimientoPersona2})
             .success(function(data,status,headers,config){
                 $scope.v = data;
+                /*
                 console.log(data);
                 console.log('-----------------------');
                 console.log('STATUS: ' + status );
@@ -261,6 +267,7 @@ Personas
                 console.log('-----------------------');
                 console.log(config);
                 console.log('-----------------------');
+                */
                 if(status == 200){
                     $scope.nacimientoPersona = $scope.v[0].nacimientoPersona;
                     $scope.nacimientoPersona2 = "";
@@ -291,6 +298,7 @@ Personas
         $http.post("../c/civilUpdate.php",{'idPersona':$scope.token,'idCivil':$scope.idCivil})
             .success(function(data,status,headers,config){
                 $scope.v = data;
+                /*
                 console.log(data);
                 console.log('-----------------------');
                 console.log('STATUS: ' + status );
@@ -299,6 +307,7 @@ Personas
                 console.log('-----------------------');
                 console.log(config);
                 console.log('-----------------------');
+                */
                 if(status == 200){
                     $scope.nombreCivil = $scope.v[0].nombreCivil;
                     $scope.idCivil = "";
@@ -328,6 +337,7 @@ Personas
         $http.post("../c/direccionUpdate.php",{'idPersona':$scope.token,'direccionPersona':$scope.direccionPersona})
             .success(function(data,status,headers,config){
                 $scope.v = data;
+                /*
                 console.log(data);
                 console.log('-----------------------');
                 console.log('STATUS: ' + status );
@@ -336,6 +346,7 @@ Personas
                 console.log('-----------------------');
                 console.log(config);
                 console.log('-----------------------');
+                */
                 if(status == 200){
                     $scope.direccionPersona = $scope.v[0].direccionPersona;
                     setTimeout(function(){ 
@@ -361,6 +372,125 @@ Personas
 
 
 
+
+
+
+
+
+
+    $scope.paisesRead=function(){
+        
+        $scope.countries = [];
+        $http.get("../c/paisesRead.php")
+            .success(function(data){
+                console.log('paisespaisespaises');
+                console.log(data);
+                console.log('paisespaisespaises');
+                $scope.countries = data;
+            })
+            .error(function(err){
+                console.log('problema al leer Paises');
+            }); 
+    }
+
+    
+
+
+
+
+    $scope.ciudadesRead=function(h,s){
+
+        $scope.cities = [];
+        
+        $http.post("../c/ciudadesRead.php",{'idPais':$scope.elegido.idPais})
+            .success(function(data){
+                console.log('xxxxxxxxxxx');
+                console.log(data);
+                console.log('xxxxxxxxxxx');
+                
+                $scope.cities = data;
+
+                $scope.rows = data.length;
+
+                if((data!=undefined)&&(data!='')&&(data!='[]')&&(data!='()')&&(data!=null)){
+                    var hideShow = $scope.hs(h,s); 
+                }else{
+                    if($scope.rows==0){
+                        $scope.citiesERR = 'no existen ciudades para este pais, por favor intente nuevamente';
+                        console.log('problema al consultar las ciudades 1');
+                    }else{
+                        console.log('problema al consultar las ciudades 2');
+                    }
+                }
+                
+
+            })
+            .error(function(err){
+                console.log('problema al consultar las ciudades 9');
+            });
+ 
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //update direccion  persona
+    $scope.ciudadesUpdate=function(h,s){
+        alert($scope.token);
+        alert($scope.choosed.idCiudad);
+
+        $scope.v = [];
+        $http.post("../c/ciudadUpdate.php",{'idPersona':$scope.token,'idCiudad':$scope.choosed.idCiudad})
+            .success(function(data,status,headers,config){
+                $scope.v = data;
+                /*
+                console.log(data);
+                console.log('-----------------------');
+                console.log('STATUS: ' + status );
+                console.log('-----------------------');
+                console.log('HEADERS:' + headers );
+                console.log('-----------------------');
+                console.log(config);
+                console.log('-----------------------');
+                */
+                if(status == 200){
+                    $scope.nombreCiudad = $scope.v[0].nombreCiudad;
+                    setTimeout(function(){ 
+                                            $scope.$apply(function(){
+                                                                       $scope.nombreCiudad;
+                                                                       $scope.hs(h,s);
+                                                                   });
+                                         },1000
+                    );
+                    
+                }
+                
+            })
+            .error(function(err){
+                console.log('no se pudo consultar webservice direccionUpdate');
+            });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 *********************************************************************************************
 Academicas
@@ -376,13 +506,13 @@ Academicas
         $scope.academicas = [];
         $http.post("../c/academicasRead.php" , {'idPersona':$scope.token})
             .success(function(data){
-                console.log('dataAcademicas es: ' + data);
+                //console.log('dataAcademicas es: ' + data);
                 $scope.academicas = data;
 
 
             })
             .error(function(err){
-
+                console.log('problema al consultar academicas');
             }); 
 
     }
@@ -415,6 +545,7 @@ Vacantes
                 $http.get("../c/" +  nombreObject + ".php")
                     .success(function(data,status,headers,config){
                         $scope.listado = data;
+                        /*
                         console.log(data);
                         console.log('-----------------------');
                         console.log('STATUS: ' + status );
@@ -422,6 +553,7 @@ Vacantes
                         console.log('HEADERS:' + headers );
                         console.log('-----------------------');
                         console.log(config);
+                        */
                     })
                     .error(function(err){
                         console.log('no se pudo consultar -> ' + nombreObject);
@@ -443,6 +575,7 @@ Vacantes
         $http.get("../c/pendingRead.php")
             .success(function(data,status,headers,config){
                 $scope.listado2 = data;
+                /*
                 console.log(data);
                 console.log('-----------------------');
                 console.log('STATUS: ' + status );
@@ -450,6 +583,7 @@ Vacantes
                 console.log('HEADERS:' + headers );
                 console.log('-----------------------');
                 console.log(config);
+                */
             })
             .error(function(err){
                 console.log('no se pudo consultar -> ' + nombreObject);
@@ -471,6 +605,7 @@ Vacantes
                 $http.get("../c/nothingRead.php")
                     .success(function(data,status,headers,config){
                         $scope.listado3 = data;
+                        /*
                         console.log(data);
                         console.log('-----------------------');
                         console.log('STATUS: ' + status );
@@ -478,6 +613,7 @@ Vacantes
                         console.log('HEADERS:' + headers );
                         console.log('-----------------------');
                         console.log(config);
+                        */
                     })
                     .error(function(err){
                         console.log('no se pudo consultar -> ' + nombreObject);
@@ -505,6 +641,7 @@ Vacantes
         $http.post("../c/solicitudCreate.php",{'idPersona':$scope.token,'idVacante':idVacante,'idEmpresa':idEmpresa})
             .success(function(data,status,headers,config){
                 $scope.createSolicitud = data;
+                /*
                 console.log('---data: ---');
                 console.log(data);
                 console.log('-----------------------');
@@ -514,7 +651,7 @@ Vacantes
                 console.log('-----------------------');
                 console.log(config);
                 console.log('-----------------------');
-
+                */
                 
                 if(status == 200){
                     var foo = $scope.getObjects('AcceptedRead');
@@ -677,110 +814,6 @@ Other
         $scope.token = token;
         localStorage.setItem('token', token);
         location.reload();
-    }
-
-    
-
-
-/*
-***********************************************************************
-Location
-***********************************************************************
-*/
-
-
-
-
-
-
-
-    $scope.paisesRead=function(){
-        
-        $scope.countries = [];
-        $http.get("../c/paisesRead.php")
-            .success(function(data){
-                console.log('xxxxxxxxxxxxxxxxxxxxx');
-                console.log(data);
-                console.log('xxxxxxxxxxxxxxxxxxxxx');
-
-                $scope.countries = data;
-
-            })
-            .error(function(err){
-
-            }); 
-    }
-
-    
-
-
-
-
-    $scope.setCountry=function(idPais){
-        $scope.country = idPais;
-        
-
-    }
-
-
-
-
-    $scope.setCountry=function(pais){
-       //hacer la consulta de todas las ciudades del pais que recibe como parametro
-        
-       // setear $scope.ciudades[]
-       //para mostrar el listado de ciudades 
-    }
-
-
-
-
-
-    $scope.updateCiudad=function(idCiudad){
-        $scope.city = idCiudad;
-
-        $scope.token = $scope.getToken();
-
-        alert('pais es: ' + $scope.country );
-        alert('ciudad es: ' + $scope.city );
-        alert('token es: ' + $scope.token );
-        
-        $scope.ciudadUpdated = [];
-        $http.post("../c/updateCiudad.php",{'idPersona':$scope.token,'idCiudad':idVacante})
-            .success(function(data,status,headers,config){
-                $scope.ciudadUpdated = data;
-                console.log('---data: ---');
-                console.log(data);
-                console.log('-----------------------');
-                console.log('STATUS: ' + status );
-                console.log('-----------------------');
-                console.log('HEADERS:' + headers );
-                console.log('-----------------------');
-                console.log(config);
-                console.log('-----------------------');
-
-                if(status == 200){
-                    var foo = $scope.getObjects('AcceptedRead');
-                    var pending = $scope.pendingRead();
-                    var nothing = $scope.nothingRead();
-                    setTimeout(function(){ 
-                                            $scope.$apply(function(){
-                                                                       $scope.listado;
-                                                                       $scope.listado2;
-                                                                       $scope.listado3;
-                                                                   });
-                                         },2000
-                    );
-                   
-                }
-                
-                
-            })
-            .error(function(err){
-                console.log('no se pudo consultar webservice direccionUpdate');
-            });
-            
-        var hideShow = $scope.hs(h,s);
     }
 
 

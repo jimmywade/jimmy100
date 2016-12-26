@@ -10,10 +10,34 @@
 
     <link rel="shortcut icon" href="../img/logo10.png" type="image/png" />
     <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css" />
+
+
+
+    <!--
+    <link rel="stylesheet" href="../libs/bootstrap-select/dist/css/bootstrap-select.min.css" />
+    <script src="../libs/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="../libs/bootstrap-select/js/i18n/defaults-*.min.js"></script>
+    -->
+
+
+    <!--
+    <link rel="stylesheet" href="..libs/bootstrap-select/bootstrap-select.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/i18n/defaults-*.min.js"></script>
+    -->
+
+
+    <!--
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/i18n/defaults-*.min.js"></script>
+    -->
+
+
+
     <link rel="stylesheet" href="../styles.css" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
-
 
     <script type="text/javascript" src="../libs/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.min.js"></script>
@@ -427,7 +451,7 @@
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-1 col-sm-offset-0 col-md-offset-0" style="padding:0;">
                     <div class="form-group">
-                        <button ng-click="hs('countries1','countries2')" title="save" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button ng-click="hs('countries1','countries2'); showSIngle('countryHidden')" title="save" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
                     </div>
                 </div>   
             </section>
@@ -435,53 +459,50 @@
 
 
             <section id="countries2" style="display:none;">
-                <div id="roller14" class="col-xs-12 col-sm-4 col-md-4 col-sm-offset-0 col-md-offset-0" style="text-align:left; padding:0;">
-                    <label>Pais y ciudad:</label>
-                </div>
+
                 
-                <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                <div id="countryHidden" class="col-xs-12 col-sm-8" style="display:block;">
                     <div class="row">
-                        <div class="col-xs-6" style="padding:0;">
-                            <form class="navbar-form" role="search">
-                                <div class="input-group add-on">
-                                    <input class="form-control" name="srch-term" id="srch-term" type="text" placeholder="Pais">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
+                        <div class="col-xs-6" style="text-align:left; padding:0;">
+                            <label>Pais:</label>
                         </div>
                         <div class="col-xs-6" style="padding:0;">
-                            <div style="height:100px;overflow:hidden;" ng-repeat="country in countries">
-                                <div ng-click="setCountry(country.idPais)">
-                                    {{country.nombrePais}}  
-                                </div>    
+                            <div>
+                                <select ng-options="elemento.nombrePais for elemento in countries" ng-model="elegido" ng-change="ciudadesRead('countryHidden','cityHidden')">
+                                    <option value="">-- País --</option>
+                                </select>
+                                <!--
+                                <hr>
+                                <label>Pais elegido:</label>
+                                <input type="text" ng-model="elegido.idPais">
+                                -->
+                                <h6><b><i>{{citiesERR}}</i></b></h6>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-0 col-md-offset-0" style="padding:0;">
+                <div id="cityHidden" class="col-xs-12 col-sm-8" style="display:none;">
                     <div class="row">
-                        <div class="col-xs-6" style="padding:0;">
-                            <form class="navbar-form" role="search">
-                                <div class="input-group add-on">
-                                    <input class="form-control" name="srch-term" id="srch-term" type="text" placeholder="Ciudad">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
+                        <div class="col-xs-6" style="text-align:left; padding:0;">
+                            <label>Ciudad:</label>
                         </div>
                         <div class="col-xs-6" style="padding:0;">
-                            <div style="height:100px;overflow:hidden;" ng-repeat="city in cities">
-                                <div ng-click="updateCiudad(city.idCiudad)">
-                                    {{city.nombreCiudad}}  
-                                </div>    
+                            <div>
+                                <select ng-options="element.nombreCiudad for element in cities" ng-model="choosed" ng-change="ciudadesUpdate('countries2','countries1')">
+                                    <option value="">-- Seleccionar Ciudad --</option>
+                                </select>
+                                <!--
+                                <hr>
+                                <label>Ciudad elegida:</label>
+                                <input type="text" ng-model="choosed.idCiudad">
+                                -->
                             </div>
                         </div>
                     </div>
                 </div>
+
+
             </section>
 
 

@@ -3,16 +3,17 @@
 if(json_decode(file_get_contents("php://input"))){
 	$data = json_decode(file_get_contents("php://input"));
 	$idPersona=$data->idPersona;
-	$direccionPersona=$data->direccionPersona;
+	$idCiudad=$data->idCiudad;
 }else{
 	$idPersona=$_REQUEST['idPersona'];
-	$direccionPersona=$_REQUEST['direccionPersona'];
+	$idCiudad=$_REQUEST['idCiudad'];
 }
 
 
 require_once '../m/Persona.php';
 $Update = new Persona();
-$UPDATE = $Update->direccionUpdate($idPersona,$direccionPersona);
+$UPDATE = $Update->ciudadUpdate($idPersona,$idCiudad);
+
 
 
 if($UPDATE == true){
@@ -25,8 +26,6 @@ if($UPDATE == true){
     $rows[] = $r;
     echo json_encode($rows);
 }
-
-
 
 
 
