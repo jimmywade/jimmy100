@@ -401,7 +401,7 @@ Personas
     $scope.ciudadesRead=function(h,s){
 
         $scope.cities = [];
-        
+        var setting = $scope.setPais($scope.elegido.idPais);
         $http.post("../c/ciudadesRead.php",{'idPais':$scope.elegido.idPais})
             .success(function(data){
                 console.log('xxxxxxxxxxx');
@@ -438,6 +438,13 @@ Personas
 
 
 
+    $scope.setPais=function(idPais){
+        $scope.idPais = idPais;
+    }
+
+
+
+
 
 
 
@@ -445,11 +452,10 @@ Personas
 
     //update direccion  persona
     $scope.ciudadesUpdate=function(h,s){
-        alert($scope.token);
-        alert($scope.choosed.idCiudad);
+
 
         $scope.v = [];
-        $http.post("../c/ciudadUpdate.php",{'idPersona':$scope.token,'idCiudad':$scope.choosed.idCiudad})
+        $http.post("../c/ciudadUpdate.php",{'idPersona':$scope.token,'idCiudad':$scope.choosed.idCiudad,'idPais':$scope.idPais})
             .success(function(data,status,headers,config){
                 $scope.v = data;
                 /*

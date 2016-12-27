@@ -269,9 +269,6 @@ class Persona{
 
 
 
-
-
-
     public function ciudadUpdate($idPersona,$idCiudad){
     	$sql = "
     	UPDATE personas
@@ -282,6 +279,19 @@ class Persona{
         return $result;
     }
 
+
+
+
+
+    public function paisUpdate($idPersona,$idPais){
+    	$sql = "
+    	UPDATE personas
+		SET idPais='$idPais'
+		WHERE idPersona='$idPersona';
+    	";
+    	$resultPais = mysqli_query($this->db->connect(), $sql);
+        return $resultPais;
+    }
 
 
 
